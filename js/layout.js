@@ -13,16 +13,27 @@ let todoList = document.querySelector('.todo__list ol'),
 if(JSON.parse(localStorage.getItem('todolist'))){
     todoLists = JSON.parse(localStorage.getItem('todolist'));
 
-    todoLists.forEach(element => {
+    todoLists.forEach(function(value, i) {
         let li = document.createElement('li');
+        console.log(i);
         li.innerHTML = `
-        <div class="round-checkbox">
+        <div class="round-checkbox`+i+`">
             <input type="checkbox" id="checkbox" />
             <label for="checkbox"></label>
         </div>
-        <input type="text" value="${element}" disabled>
+        <input type="text" value="${value}" disabled>
         <button id="edit" class="todo__list__edit">Edit</button>
         <button id="delete" class="todo__list__delete"><i class="far fa-trash-alt"></i></button>`;
+
+        let sheet = document.createElement('style')
+        sheet.insertRule = ('.round-checkbox'+i+'{position: relative;}',i);
+        sheet.addRule = ('.round-checkbox'+i+' label {background-color: #fff; border: 1px solid #ccc; border-radius: 50%; cursor: pointer; height: 20px; left: 0; position: absolute; top: 0; width: 20px;}',i);
+        sheet.addRule = ('.round-checkbox'+i+' label:after { border: 1px solid #fff; border-top: none; border-right: none; content: ""; height: 3px; left: 5px; opacity: 0; position: absolute; top: 7px; transform: rotate(-45deg); width: 9px; }',i);
+        sheet.addRule = ('.round-checkbox'+i+' { visibility: hidden; }',i);
+        sheet.addRule = ('.round-checkbox'+i+':checked + label { background-color: rgb(18, 160, 216); border-color: rgb(18, 160, 216); }',i);
+        sheet.addRule = ('.round-checkbox'+i+':checked + label:after { opacity: 1; }',i);
+
+        document.body.appendChild(sheet);
         todoList.appendChild(li);
     });
 

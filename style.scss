@@ -87,12 +87,12 @@ body{
         ol{
             padding: 0;
             list-style: none;
-            margin-top: 10;
-            height: 300px;
+            min-height: 300px;
             overflow-y: auto;
             li{
                 width: calc(100%-5px);
                 padding: 5px;
+                margin: 10px 0;
                 background-color: #f3f4f6;
                 display: flex;
                 border-radius: 5px;
