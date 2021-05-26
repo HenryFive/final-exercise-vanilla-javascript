@@ -13,6 +13,7 @@ const createBtn = document.getElementById("create-btn"),
     
 
 let todoList = document.querySelector('.todo__list ol'),
+    todoListAll = document.querySelectorAll('.todo__list ol'),
     todoLists = [];
 
 showAll();
@@ -36,16 +37,16 @@ function showAll(){
 
             index++;
         });
-        console.log(todoLists);
+        //console.log(todoLists);
         document.querySelector('.todo__list__footer--items-left').textContent = `${countActive()} items left`;
     }
 }
 createBtn.addEventListener("mouseover", function(){
-    this.textContent = "+"
+    this.textContent = "+";
 });
 
 createBtn.addEventListener("mouseout", function(){
-    this.textContent = ""
+    this.textContent = "";
 });
 
 createBtn.addEventListener('click', function(e){
@@ -113,7 +114,6 @@ document.addEventListener('click', function(e){
         let that = e.target;
         let nodeIndex = liElem => [...liElem.parentNode.children].indexOf(liElem);
         let inputVal = todoLists[nodeIndex(that.parentNode.parentNode)].value;
-
         setTimeout(function(){
             if(that.previousElementSibling.checked === true){
                 todoLists[nodeIndex(that.parentNode.parentNode)] = {
@@ -129,6 +129,49 @@ document.addEventListener('click', function(e){
             document.querySelector('.todo__list__footer--items-left').textContent = `${countActive()} items left`;
             localStorage.setItem('todolist', JSON.stringify(todoLists));
         }, 200)
+    }else if(hasClass(e.target, 'todo__list__edit')){
+        e.preventDefault();
+        let that = e.target;
+        let nodeIndex = liElem => [...liElem.parentNode.children].indexOf(liElem);
+        let inputBox = that.parentNode.children[1];
+
+        if(that.textContent == "Edit"){
+        inputBox.disabled = false;
+        inputBox.focus();
+        moveCaretToEnd(inputBox);
+
+        function moveCaretToEnd(el) {
+            if (typeof el.selectionStart == "number") {
+                el.selectionStart = el.selectionEnd = el.value.length;
+            } else if (typeof el.createTextRange !== "undefined") {
+                el.focus();
+                var range = el.createTextRange();
+                range.collapse(false);
+                range.select();
+            }
+        }
+        that.textContent = "Save";
+        } else if(that.textContent == "Save"){
+            let statusVal;
+            if(inputBox.value != ""){
+                if(that.parentNode.children[0].children[0].checked === true){
+                    statusVal = "completed";
+                } else {
+                    statusVal = "active";
+                }
+                setTimeout(function(){
+                    todoLists[nodeIndex(that.parentNode)] = {
+                        'status' : statusVal ,
+                        'value': inputBox.value
+                    }
+                    localStorage.setItem('todolist', JSON.stringify(todoLists));
+                }, 200);
+                inputBox.disabled = true;
+                that.textContent = "Edit";
+            } else {
+                window.alert("Unable to save. List item is empty.");
+            }
+        }
     }else if(hasClass(e.target, 'todo__dark-mode')){
         that = e.target;
         bool = !(localStorage.darkMode === 'true' ? true : false);
@@ -138,6 +181,8 @@ document.addEventListener('click', function(e){
 
     }
 });
+
+
 
 bool = localStorage.darkMode === 'true' ? true : false;
 if(bool){

@@ -15,6 +15,7 @@ input {
 
 a:hover {
   color: #1384b1;
+  cursor: pointer;
 }
 
 a:active {
@@ -58,8 +59,8 @@ body.dark-mode section:not(.background-top), body.dark-mode li, body.dark-mode n
 .background-top--inner {
   height: inherit;
   width: inherit;
-  background: -webkit-gradient(linear, left top, right top, from(rgba(0, 100, 252, 0.5)), to(rgba(155, 0, 255, 0.6)));
-  background: linear-gradient(90deg, rgba(0, 100, 252, 0.5), rgba(155, 0, 255, 0.6));
+  background: -webkit-gradient(linear, left top, right top, from(rgba(0, 100, 252, 0.5)), to(rgba(155, 0, 255, 0.5)));
+  background: linear-gradient(90deg, rgba(0, 100, 252, 0.5), rgba(155, 0, 255, 0.5));
 }
 
 .todo {
@@ -101,7 +102,7 @@ body.dark-mode section:not(.background-top), body.dark-mode li, body.dark-mode n
   background-color: #fff;
   border-radius: 5px;
   height: 30px;
-  padding: 5px;
+  padding: 10px 5px;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -121,13 +122,17 @@ body.dark-mode section:not(.background-top), body.dark-mode li, body.dark-mode n
 }
 
 .todo--create button:active {
+  background-color: #12a0d8;
   border: 1px solid #b2b4bb;
+  color: #fff;
 }
 
 .todo--create input {
+  padding-left: 5px;
   color: #909398;
   width: calc(100% - 50px);
   border: 0;
+  font-size: 0.95em;
 }
 
 .todo--create input:focus {
@@ -142,6 +147,7 @@ body.dark-mode section:not(.background-top), body.dark-mode li, body.dark-mode n
 }
 
 .todo__list ol {
+  margin: 0;
   padding: 0;
   list-style: none;
   min-height: 300px;
@@ -151,7 +157,7 @@ body.dark-mode section:not(.background-top), body.dark-mode li, body.dark-mode n
 .todo__list ol li {
   width: calc(100%-5px);
   padding: 5px;
-  margin: 10px 0;
+  margin-bottom: 10px;
   background-color: #f3f4f6;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -204,7 +210,7 @@ body.dark-mode section:not(.background-top), body.dark-mode li, body.dark-mode n
 }
 
 .todo__list ol li input[type="text"] {
-  padding-left: 5px;
+  padding-left: 15px;
   font-size: inherit;
   background-color: inherit;
   width: 300px;
