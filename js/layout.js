@@ -13,28 +13,20 @@ let todoList = document.querySelector('.todo__list ol'),
 if(JSON.parse(localStorage.getItem('todolist'))){
     todoLists = JSON.parse(localStorage.getItem('todolist'));
 
-    todoLists.forEach(function(value, i) {
+    let index = 0;
+    todoLists.forEach(element => {
         let li = document.createElement('li');
-        console.log(i);
         li.innerHTML = `
-        <div class="round-checkbox`+i+`">
-            <input type="checkbox" id="checkbox" />
-            <label for="checkbox"></label>
+        <div class="round-checkbox">
+            <input type="checkbox" id="checkbox${index}" ${element.status === 'completed' ? 'checked' : ''}/>
+            <label for="checkbox${index}" class='round-checkbox--label'></label>
         </div>
-        <input type="text" value="${value}" disabled>
+        <input type="text" value="${element.value}" disabled>
         <button id="edit" class="todo__list__edit">Edit</button>
         <button id="delete" class="todo__list__delete"><i class="far fa-trash-alt"></i></button>`;
-
-        let sheet = document.createElement('style')
-        sheet.insertRule = ('.round-checkbox'+i+'{position: relative;}',i);
-        sheet.addRule = ('.round-checkbox'+i+' label {background-color: #fff; border: 1px solid #ccc; border-radius: 50%; cursor: pointer; height: 20px; left: 0; position: absolute; top: 0; width: 20px;}',i);
-        sheet.addRule = ('.round-checkbox'+i+' label:after { border: 1px solid #fff; border-top: none; border-right: none; content: ""; height: 3px; left: 5px; opacity: 0; position: absolute; top: 7px; transform: rotate(-45deg); width: 9px; }',i);
-        sheet.addRule = ('.round-checkbox'+i+' { visibility: hidden; }',i);
-        sheet.addRule = ('.round-checkbox'+i+':checked + label { background-color: rgb(18, 160, 216); border-color: rgb(18, 160, 216); }',i);
-        sheet.addRule = ('.round-checkbox'+i+':checked + label:after { opacity: 1; }',i);
-
-        document.body.appendChild(sheet);
         todoList.appendChild(li);
+
+        index++;
     });
 
     document.querySelector('.todo__list__footer--items-left').textContent = `${todoLists.length} items left`;
@@ -54,8 +46,8 @@ createBtn.addEventListener('click', function(e){
     let li = document.createElement('li');
     li.innerHTML = `
     <div class="round-checkbox">
-        <input type="checkbox" id="checkbox" />
-        <label for="checkbox"></label>
+        <input type="checkbox" id="checkbox${todoLists.length}" />
+        <label for="checkbox${todoLists.length}" class='round-checkbox--label'></label>
     </div>
     <input type="text" value="${createTxt.value}" disabled>
     <button id="edit" class="todo__list__edit">Edit</button>
@@ -65,7 +57,11 @@ createBtn.addEventListener('click', function(e){
         createTxt.classList.add('create-txt--invalid');
     else{
         todoList.appendChild(li);
-        todoLists.push(createTxt.value);
+        // todoLists.push(createTxt.value);
+        todoLists.push({
+            'status': 'incomplete',
+            'value': createTxt.value
+        });
         localStorage.setItem('todolist', JSON.stringify(todoLists));
         createTxt.value = '';
         document.querySelector('.todo__list__footer--items-left').textContent = `${todoLists.length} items left`;
@@ -94,5 +90,24 @@ document.addEventListener('click', function(e){
         localStorage.setItem('todolist', JSON.stringify(todoLists));
         e.target.parentNode.remove();
         document.querySelector('.todo__list__footer--items-left').textContent = `${todoLists.length} items left`;
+    }else if(hasClass(e.target, 'round-checkbox--label')){
+        let that = e.target;
+        let nodeIndex = liElem => [...liElem.parentNode.children].indexOf(liElem);
+        let inputVal = todoLists[nodeIndex(that.parentNode.parentNode)].value;
+
+        setTimeout(function(){
+            if(that.previousElementSibling.checked === true){
+                todoLists[nodeIndex(that.parentNode.parentNode)] = {
+                    'status': 'completed',
+                    'value': inputVal
+                }
+            }else{
+                todoLists[nodeIndex(that.parentNode.parentNode)] = {
+                    'status': 'incomplete',
+                    'value': inputVal
+                }
+            }
+            localStorage.setItem('todolist', JSON.stringify(todoLists));
+        }, 200)
     }
 });
