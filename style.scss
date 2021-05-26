@@ -27,10 +27,10 @@ body{
     }
     &.dark-mode{
         @include darkModeThemeBg();        
-        input{
+        input, .reorder{
             color: #fff;
         }
-        section:not(.background-top), li, nav, .round-checkbox input[type="checkbox"]:checked + label{
+        section:not(.background-top), li, nav, .round-checkbox input[type="checkbox"]:checked + label, .reorder{
             @include darkModeThemeBg();        
         }
     }
@@ -43,7 +43,7 @@ body{
     background-image: url("images/mountains.jpg");
     height: 280px;
     width: 100%;
-    background-position-y: 27%;
+    background-position-y: 26%;
     background-position-x: center;
     transform: scaleX(-1);
     &--inner{
@@ -57,7 +57,7 @@ body{
     flex-direction: column;
     max-width: 420px;
     margin: 0 auto;
-    height: 100%;
+    height: 95vh;
     h2{
         font-size: 2.2em;
         margin: 70px 0;
@@ -235,14 +235,11 @@ body{
         line-height: 75px;
         text-align: center;
     }
-    &__reorder:hover{
-        border: solid 1px #737579;
-        border-style: dashed;
-    }
     &__footer{
         margin-top:auto;
         max-width: inherit;
         text-align: center;
+        margin-bottom: 20px;
     } 
 }
 
