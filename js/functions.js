@@ -210,7 +210,7 @@ readActiveNav.addEventListener('click',function(){
 
         let index = 0;
         todoLists.forEach(element => {
-            if(element.status == "completed"){
+            if(element.status == "active"){
                 let li = document.createElement('li');
             li.innerHTML = `
             <div class="round-checkbox">
@@ -244,7 +244,7 @@ readCompletedNav.addEventListener('click',function(){
 
         let index = 0;
         todoLists.forEach(element => {
-            if(element.status == "active"){
+            if(element.status == "completed"){
                 let li = document.createElement('li');
             li.innerHTML = `
             <div class="round-checkbox">
