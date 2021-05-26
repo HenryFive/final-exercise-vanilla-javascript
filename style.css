@@ -38,7 +38,7 @@ body.dark-mode input, body.dark-mode .reorder {
   color: #fff;
 }
 
-body.dark-mode section:not(.background-top), body.dark-mode li, body.dark-mode nav, body.dark-mode .round-checkbox input[type="checkbox"]:checked + label, body.dark-mode .reorder {
+body.dark-mode section:not(.background-top), body.dark-mode li, body.dark-mode nav, body.dark-mode .round-checkbox input[type="checkbox"]:checked + label, body.dark-mode .todo__reorder {
   background: RGBa(30, 30, 30, 0.9) !important;
 }
 
@@ -283,16 +283,18 @@ body.dark-mode section:not(.background-top), body.dark-mode li, body.dark-mode n
 }
 
 .todo__reorder {
-  height: 80px;
-  line-height: 75px;
+  height: 50px;
+  margin: 10px 0;
+  line-height: 45px;
   text-align: center;
+  border-radius: 5px;
 }
 
 .todo__footer {
   margin-top: auto;
   max-width: inherit;
   text-align: center;
-  margin-bottom: 20px;
+  padding: 10px 0;
 }
 
 .create-txt--invalid {
