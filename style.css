@@ -42,8 +42,8 @@ body {
 .background-top--inner {
   height: inherit;
   width: inherit;
-  background: -webkit-gradient(linear, left top, right top, from(rgba(0, 100, 252, 0.5)), to(rgba(155, 0, 255, 0.7)));
-  background: linear-gradient(90deg, rgba(0, 100, 252, 0.5), rgba(155, 0, 255, 0.7));
+  background: -webkit-gradient(linear, left top, right top, from(rgba(0, 100, 252, 0.5)), to(rgba(155, 0, 255, 0.6)));
+  background: linear-gradient(90deg, rgba(0, 100, 252, 0.5), rgba(155, 0, 255, 0.6));
 }
 
 .todo {
@@ -114,14 +114,14 @@ body {
 .todo__list ol {
   padding: 0;
   list-style: none;
-  margin-top: 10;
-  height: 300px;
+  min-height: 300px;
   overflow-y: auto;
 }
 
 .todo__list ol li {
   width: calc(100%-5px);
   padding: 5px;
+  margin: 10px 0;
   background-color: #f3f4f6;
   display: -webkit-box;
   display: -ms-flexbox;

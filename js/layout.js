@@ -13,17 +13,20 @@ let todoList = document.querySelector('.todo__list ol'),
 if(JSON.parse(localStorage.getItem('todolist'))){
     todoLists = JSON.parse(localStorage.getItem('todolist'));
 
+    let index = 0;
     todoLists.forEach(element => {
         let li = document.createElement('li');
         li.innerHTML = `
         <div class="round-checkbox">
-            <input type="checkbox" id="checkbox" />
-            <label for="checkbox"></label>
+            <input type="checkbox" id="checkbox${index}" ${element.status === 'completed' ? 'checked' : ''}/>
+            <label for="checkbox${index}" class='round-checkbox--label'></label>
         </div>
-        <input type="text" value="${element}" disabled>
+        <input type="text" value="${element.value}" disabled>
         <button id="edit" class="todo__list__edit">Edit</button>
         <button id="delete" class="todo__list__delete"><i class="far fa-trash-alt"></i></button>`;
         todoList.appendChild(li);
+
+        index++;
     });
 
     document.querySelector('.todo__list__footer--items-left').textContent = `${todoLists.length} items left`;
@@ -43,8 +46,8 @@ createBtn.addEventListener('click', function(e){
     let li = document.createElement('li');
     li.innerHTML = `
     <div class="round-checkbox">
-        <input type="checkbox" id="checkbox" />
-        <label for="checkbox"></label>
+        <input type="checkbox" id="checkbox${todoLists.length}" />
+        <label for="checkbox${todoLists.length}" class='round-checkbox--label'></label>
     </div>
     <input type="text" value="${createTxt.value}" disabled>
     <button id="edit" class="todo__list__edit">Edit</button>
@@ -54,7 +57,11 @@ createBtn.addEventListener('click', function(e){
         createTxt.classList.add('create-txt--invalid');
     else{
         todoList.appendChild(li);
-        todoLists.push(createTxt.value);
+        // todoLists.push(createTxt.value);
+        todoLists.push({
+            'status': 'incomplete',
+            'value': createTxt.value
+        });
         localStorage.setItem('todolist', JSON.stringify(todoLists));
         createTxt.value = '';
         document.querySelector('.todo__list__footer--items-left').textContent = `${todoLists.length} items left`;
@@ -83,5 +90,24 @@ document.addEventListener('click', function(e){
         localStorage.setItem('todolist', JSON.stringify(todoLists));
         e.target.parentNode.remove();
         document.querySelector('.todo__list__footer--items-left').textContent = `${todoLists.length} items left`;
+    }else if(hasClass(e.target, 'round-checkbox--label')){
+        let that = e.target;
+        let nodeIndex = liElem => [...liElem.parentNode.children].indexOf(liElem);
+        let inputVal = todoLists[nodeIndex(that.parentNode.parentNode)].value;
+
+        setTimeout(function(){
+            if(that.previousElementSibling.checked === true){
+                todoLists[nodeIndex(that.parentNode.parentNode)] = {
+                    'status': 'completed',
+                    'value': inputVal
+                }
+            }else{
+                todoLists[nodeIndex(that.parentNode.parentNode)] = {
+                    'status': 'incomplete',
+                    'value': inputVal
+                }
+            }
+            localStorage.setItem('todolist', JSON.stringify(todoLists));
+        }, 200)
     }
 });
