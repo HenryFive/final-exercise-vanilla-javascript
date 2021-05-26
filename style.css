@@ -87,6 +87,7 @@ body {
   background-color: unset;
   color: #909398;
   border: 1px solid #909398;
+  cursor: pointer;
 }
 
 .todo--create button:active {
@@ -114,6 +115,8 @@ body {
   padding: 0;
   list-style: none;
   margin-top: 10;
+  height: 300px;
+  overflow-y: auto;
 }
 
 .todo__list ol li {
@@ -200,6 +203,7 @@ body {
 
 .todo__list ol li button#delete i {
   color: #fff;
+  pointer-events: none;
 }
 
 .todo__list ol li button#edit:hover {
@@ -257,5 +261,9 @@ body {
   margin-top: auto;
   max-width: inherit;
   text-align: center;
+}
+
+.create-txt--invalid {
+  border: 1px solid red !important;
 }
 /*# sourceMappingURL=style.css.map */
