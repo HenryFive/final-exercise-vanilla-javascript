@@ -165,7 +165,7 @@ body.dark-mode section:not(.background-top), body.dark-mode li, body.dark-mode n
 
 .todo__list ol li .round-checkbox label {
   background-color: #fff;
-  border: 1px solid #ccc;
+  border: 1px solid #909398;
   border-radius: 50%;
   cursor: pointer;
   height: 20px;
