@@ -42,8 +42,8 @@ body {
 .background-top--inner {
   height: inherit;
   width: inherit;
-  background: -webkit-gradient(linear, left top, right top, from(rgba(0, 100, 252, 0.5)), to(rgba(155, 0, 255, 0.7)));
-  background: linear-gradient(90deg, rgba(0, 100, 252, 0.5), rgba(155, 0, 255, 0.7));
+  background: -webkit-gradient(linear, left top, right top, from(rgba(0, 100, 252, 0.5)), to(rgba(155, 0, 255, 0.6)));
+  background: linear-gradient(90deg, rgba(0, 100, 252, 0.5), rgba(155, 0, 255, 0.6));
 }
 
 .todo {
