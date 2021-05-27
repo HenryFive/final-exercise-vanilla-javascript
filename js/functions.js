@@ -9,6 +9,7 @@ const createBtn = document.getElementById("create-btn"),
     readAllNav = document.querySelector('.todo__read--all');
     readActiveNav = document.querySelector('.todo__read--active');
     readCompletedNav = document.querySelector('.todo__read--completed');
+    clearCompletedBtn = document.querySelector('.todo__list__footer--clear-completed');
     
     
 
@@ -20,6 +21,7 @@ showAll();
 
 function showAll(){
     if(JSON.parse(localStorage.getItem('todolist'))){
+        todoList.innerHTML="";
         todoLists = JSON.parse(localStorage.getItem('todolist'));
 
         let index = 0;
@@ -191,7 +193,6 @@ if(bool){
 }
 
 readAllNav.addEventListener('click', function(){
-    todoList.innerHTML="";
     showAll();
     readAllNav.classList.add('selected');
     readActiveNav.classList.remove('selected');
@@ -203,6 +204,11 @@ readActiveNav.addEventListener('click',function(){
     readActiveNav.classList.add('selected');
     readCompletedNav.classList.remove('selected');
 
+    showActive();
+    
+});
+
+function showActive(){
     if(JSON.parse(localStorage.getItem('todolist'))){
         todoList.innerHTML="";
 
@@ -229,10 +235,13 @@ readActiveNav.addEventListener('click',function(){
 
         document.querySelector('.todo__list__footer--items-left').textContent = `${countActive()} items left`;
     }
-});
-
+}
 
 readCompletedNav.addEventListener('click',function(){
+    showCompleted();
+});
+
+function showCompleted(){
     readAllNav.classList.remove('selected');
     readActiveNav.classList.remove('selected');
     readCompletedNav.classList.add('selected');
@@ -262,5 +271,23 @@ readCompletedNav.addEventListener('click',function(){
         });
 
         document.querySelector('.todo__list__footer--items-left').textContent = `${countActive()} items left`;
+    }
+};
+
+clearCompletedBtn.addEventListener('click',function(){
+    if(JSON.parse(localStorage.getItem('todolist'))){
+        todoLists = JSON.parse(localStorage.getItem('todolist'));
+        todoLists = todoLists.filter(data => data.status != 'completed');
+        localStorage.setItem('todolist', JSON.stringify(todoLists));
+        //console.log(todoLists);
+        if(readAllNav.classList.contains('selected')){
+            showAll();
+        }
+        if(readActiveNav.classList.contains('selected')){
+            showActive();
+        }
+        if(readCompletedNav.classList.contains('selected')){
+            showCompleted();
+        }
     }
 });
